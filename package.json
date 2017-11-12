@@ -1,12 +1,18 @@
 {
-"name": "socket-chat-example",
-"version": "0.0.1",
-"description": "my first socket.io app",
-"dependencies": {
-  "websocket": "1.0.x",
-  "express": "^4.15.2",
-  "socket.io": "^1.7.3"
-},
-"scripts": {
-  "start": "node server.js"
+  "name": "websocket-over-nodejs",
+  "preferGlobal": true,
+  "version": "0.0.2",
+  "description": "WebSocket-over-Nodejs for WebRTC Experiments: https://www.webrtc-experiment.com",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "server.js",
+  "engines": {
+    "node": ">=0.6"
+  },
+  "dependencies": {
+    "websocket": "1.0.x",
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  }
 }
