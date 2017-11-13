@@ -1,9 +1,10 @@
 var fs = require('fs');
 var express = require('express');
-var http = require('http');
 
-var serveStatic = require('serve-static');
-var file = new serveStatic('./static', { cache: false })
+var _static = require('node-static');
+var file = new _static.Server('./static', {
+    cache: false
+});
 
 let options = {}
 let app
