@@ -1,4 +1,5 @@
 var fs = require('fs');
+var express = require('express');
 
 var _static = require('node-static');
 var file = new _static.Server('./static', {
@@ -8,8 +9,8 @@ var file = new _static.Server('./static', {
 let options = {}
 let app
 
-if(process.env.DYNO){ // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
-    // se heroku
+if(process.env.DYNO){
+    // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
     app = require('http').createServer(options, serverCallback);
 } else {
     // se local
@@ -19,7 +20,6 @@ if(process.env.DYNO){ // ou qualquer variável de ambiente que houver só no her
     };
     app = require('https').createServer(options, serverCallback);
 }
-
 
 function serverCallback(request, response) {
     request.addListener('end', function () {
@@ -36,11 +36,18 @@ var io = require('socket.io').listen(app, {
     origins: '*:*'
 });
 
-io.set('transports', [
-    // 'websocket',
-    'xhr-polling',
-    'jsonp-polling'
-]);
+
+// io.set('transports', [
+//     // 'websocket',
+//     'xhr-polling',
+//     'jsonp-polling'
+// ]);
+io.set("transports", ["xhr-polling"]);
+io.set("polling duration", 10);
+
+
+
+
 
 var channels = {};
 
@@ -85,4 +92,4 @@ function onNewNamespace(channel, sender) {
 
 // O HEROKU pede pra subir o app em uma porta e por padrão ele coloca uma variável de ambiente chamada PORT
 // se ela não existir, sobe o app em localhost:8888 :)
-app.listen(process.env.PORT || 8888);
+app.listen(process.env.PORT || 3000);
