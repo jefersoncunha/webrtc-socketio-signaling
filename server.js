@@ -13,12 +13,12 @@ var options = {
     ca: fs.readFileSync('../ssl/certs/domain.com.cabundle')
 };
 */
-var options = {
-    key: fs.readFileSync('fake-keys/privatekey.pem'),
-    cert: fs.readFileSync('fake-keys/certificate.pem')
-};
+// var options = {
+//     key: fs.readFileSync('fake-keys/privatekey.pem'),
+//     cert: fs.readFileSync('fake-keys/certificate.pem')
+// };
 
-var app = require('https').createServer(options, serverCallback);
+var app = require('http').createServer(serverCallback);
 
 function serverCallback(request, response) {
     request.addListener('end', function () {
