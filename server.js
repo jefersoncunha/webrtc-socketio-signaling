@@ -17,7 +17,6 @@ function serverCallback(request, response) {
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
         file.serve(request, response);
     }).resume();
 }

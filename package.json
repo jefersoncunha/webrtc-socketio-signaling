@@ -1,8 +1,6 @@
 {
   "name": "websocket-over-nodejs",
   "preferGlobal": true,
-  "version": "0.0.2",
-  "description": "WebSocket-over-Nodejs for WebRTC Experiments: https://www.webrtc-experiment.com",
   "scripts": {
     "start": "node server.js"
   },
