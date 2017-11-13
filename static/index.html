@@ -21,7 +21,10 @@
         <!-- <script src="socket.io.js"> </script>
         <script src="peerConnection.js"> </script> -->
 
-        <script src="socketio.js"></script>
+        <!-- <script src="socketio.js"></script> -->
+        <script src="/socket.io/socket.io.js"></script>
+
+
     <!-- <script src="https://webrtc.jefersoncunha.me/05/socket.io.js"> </script> -->
     <script src="https://webrtc.jefersoncunha.me/05/peerConnection.js"> </script>
     </head>
@@ -57,7 +60,9 @@
                   var channel = location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
                   var sender = Math.round(Math.random() * 999999999) + 999999999;
 
-                  var SIGNALING_SERVER = "https://" + document.location.host;
+                  // var SIGNALING_SERVER = "https://" + document.location.host;
+
+                  var SIGNALING_SERVER = '/';
 
                   // var SIGNALING_SERVER = 'https://localhost:3000/';
 
