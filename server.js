@@ -5,14 +5,6 @@ var file = new _static.Server('./static', {
     cache: false
 });
 
-/*
-// use this for LIVE domains
-var options = {
-    key: fs.readFileSync('../ssl/private/domain.com.key'),
-    cert: fs.readFileSync('../ssl/certs/domain.com.crt'),
-    ca: fs.readFileSync('../ssl/certs/domain.com.cabundle')
-};
-*/
 // var options = {
 //     key: fs.readFileSync('fake-keys/privatekey.pem'),
 //     cert: fs.readFileSync('fake-keys/certificate.pem')
@@ -81,4 +73,6 @@ function onNewNamespace(channel, sender) {
         });
     });
 }
-app.listen(8888);
+// app.listen(8888);
+
+app.set('port', process.env.PORT || 3000);
