@@ -1,3 +1,5 @@
+var isHeroku = !!process.env.DYNO
+
 var fs = require('fs');
 var express = require('express');
 var _static = require('node-static');
@@ -24,19 +26,17 @@ function serverCallback(request, response) {
 
 if(process.env.DYNO){
     // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
-    app = require('http').createServer(options, serverCallback);
-    console.log('options', options);
+    app = require('http').createServer(serverCallback);
 } else {
     // se local
-    options = {
+    let options = {
         key: fs.readFileSync('./fake-keys/privatekey.pem'),
         cert: fs.readFileSync('./fake-keys/certificate.pem')
     };
-    console.log('options', options);
     app = require('https').createServer(options, serverCallback);
 }
 
-console.log(app);
+// console.log(app);
 
 
 var io = require('socket.io').listen(app, {
@@ -91,4 +91,7 @@ function onNewNamespace(channel, sender) {
 
 // O HEROKU pede pra subir o app em uma porta e por padrão ele coloca uma variável de ambiente chamada PORT
 // se ela não existir, sobe o app em localhost:8888 :)
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, function(){
+  let host = isHeroku ? 'https://webrtc-socketio-signaling.herokuapp.com' : 'https://localhost:3000'
+  console.log(`Online! Access: ${host}`)
+});
