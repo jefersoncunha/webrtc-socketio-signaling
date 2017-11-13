@@ -3,23 +3,30 @@ var fs = require('fs');
 var _static = require('node-static');
 var file = new _static.Server('./static', {
     cache: false
-});
+})
 
-// var options = {
-//     key: fs.readFileSync('fake-keys/privatekey.pem'),
-//     cert: fs.readFileSync('fake-keys/certificate.pem')
-// };
+let options = {}
+let app
 
-var express = require('express');
-var app = express();
+if(process.env.DYNO){ // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
+    // se heroku
+    app = require('http').createServer(options, serverCallback);
+} else {
+    // se local
+    options = {
+        key: fs.readFileSync('fake-keys/privatekey.pem'),
+        cert: fs.readFileSync('fake-keys/certificate.pem')
+    };
+    app = require('https').createServer(options, serverCallback);
+}
 
-var app = require('http').createServer(serverCallback);
 
 function serverCallback(request, response) {
     request.addListener('end', function () {
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
         file.serve(request, response);
     }).resume();
 }
@@ -76,9 +83,6 @@ function onNewNamespace(channel, sender) {
     });
 }
 
-// app.listen(8888);
-
-var port = process.env.PORT || 3000;
-app.listen(port, function () {
-    console.log('Umbler listening on port %s', port);
-});
+// O HEROKU pede pra subir o app em uma porta e por padrão ele coloca uma variável de ambiente chamada PORT
+// se ela não existir, sobe o app em localhost:8888 :)
+app.listen(process.env.PORT || 8888);
