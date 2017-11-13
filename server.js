@@ -10,6 +10,9 @@ var file = new _static.Server('./static', {
 //     cert: fs.readFileSync('fake-keys/certificate.pem')
 // };
 
+var express = require('express');
+var app = express();
+
 var app = require('http').createServer(serverCallback);
 
 function serverCallback(request, response) {
@@ -75,8 +78,7 @@ function onNewNamespace(channel, sender) {
 
 // app.listen(8888);
 
-var port = process.env.PORT || 8000
-
-app.listen(port, function() {
-    console.log("App is running on port " + port);
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+    console.log('Umbler listening on port %s', port);
 });
