@@ -2,8 +2,8 @@ var fs = require('fs');
 var express = require('express');
 var http = require('http');
 
-var serveStatic = require('serve-static');
-var file = new serveStatic('./static', { cache: false })
+// var serveStatic = require('serve-static');
+// var file = new serveStatic('./static', { cache: false })
 
 let options = {}
 let app
