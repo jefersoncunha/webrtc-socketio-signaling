@@ -8,6 +8,7 @@
   "dependencies": {
     "websocket": "1.0.x",
     "express": "^4.15.2",
-    "socket.io": "^1.7.3"
+    "socket.io": "^1.7.3",
+    "node-static":"0.7.10"
   }
 }
