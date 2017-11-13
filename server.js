@@ -18,7 +18,7 @@ function serverCallback(request, response) {
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-        
+
         file.serve(request, response);
     })
     .resume();
@@ -91,7 +91,14 @@ function onNewNamespace(channel, sender) {
 
 // O HEROKU pede pra subir o app em uma porta e por padrão ele coloca uma variável de ambiente chamada PORT
 // se ela não existir, sobe o app em localhost:8888 :)
-app.listen(process.env.PORT || 3000, function(){
-  let host = isHeroku ? 'https://webrtc-socketio-signaling.herokuapp.com' : 'https://localhost:3000'
-  console.log(`Online! Access: ${host}`)
+
+// app.listen(process.env.PORT || 3000, function(){
+//   let host = isHeroku ? 'https://webrtc-socketio-signaling.herokuapp.com' : 'https://localhost:3000'
+//   console.log(`Online! Acåcess: ${host}`)
+// });
+
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+  var addr = app.address();
+  console.log('   app listening on http://' + addr.address + ':' + addr.port);
 });

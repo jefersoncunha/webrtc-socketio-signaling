@@ -62,9 +62,7 @@
 
                   // var SIGNALING_SERVER = "https://" + document.location.host;
 
-                  var SIGNALING_SERVER = '/';
-
-                  // var SIGNALING_SERVER = 'https://localhost:3000/';
+                  var SIGNALING_SERVER = 'https://webrtc-socketio-signaling.herokuapp.com:3000/';
 
 
                   io.connect(SIGNALING_SERVER).emit('new-channel', {
