@@ -1,7 +1,7 @@
 var fs = require('fs');
 var express = require('express');
-
 var _static = require('node-static');
+
 var file = new _static.Server('./static', {
     cache: false
 });
@@ -9,27 +9,35 @@ var file = new _static.Server('./static', {
 let options = {}
 let app
 
-if(process.env.DYNO){
-    // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
-    app = require('http').createServer(options, serverCallback);
-} else {
-    // se local
-    options = {
-        key: fs.readFileSync('fake-keys/privatekey.pem'),
-        cert: fs.readFileSync('fake-keys/certificate.pem')
-    };
-    app = require('https').createServer(options, serverCallback);
-}
+console.log('is heroku?', !!process.env.DYNO)
 
 function serverCallback(request, response) {
     request.addListener('end', function () {
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
+        
         file.serve(request, response);
-    }).resume();
+    })
+    .resume();
 }
+
+if(process.env.DYNO){
+    // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
+    app = require('http').createServer(options, serverCallback);
+    console.log('options', options);
+} else {
+    // se local
+    options = {
+        key: fs.readFileSync('./fake-keys/privatekey.pem'),
+        cert: fs.readFileSync('./fake-keys/certificate.pem')
+    };
+    console.log('options', options);
+    app = require('https').createServer(options, serverCallback);
+}
+
+console.log(app);
+
 
 var io = require('socket.io').listen(app, {
     log: true,
@@ -58,6 +66,7 @@ io.sockets.on('connection', function (socket) {
 
     });
 });
+
 function onNewNamespace(channel, sender) {
     io.of('/' + channel).on('connection', function (socket) {
         var username;
