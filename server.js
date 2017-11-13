@@ -1,10 +1,9 @@
 var fs = require('fs');
 var express = require('express');
+var http = require('http');
 
-var _static = require('node-static');
-var file = new _static.Server('./static', {
-    cache: false
-})
+var serveStatic = require('serve-static');
+var file = new serveStatic('./static', { cache: false })
 
 let options = {}
 let app
@@ -36,18 +35,8 @@ var io = require('socket.io').listen(app, {
     origins: '*:*'
 });
 
-
-// io.set('transports', [
-//     // 'websocket',
-//     'xhr-polling',
-//     'jsonp-polling'
-// ]);
 io.set("transports", ["xhr-polling"]);
 io.set("polling duration", 10);
-
-
-
-
 
 var channels = {};
 
