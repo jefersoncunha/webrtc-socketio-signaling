@@ -97,7 +97,7 @@ function onNewNamespace(channel, sender) {
 //   console.log(`Online! Acåcess: ${host}`)
 // });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 80;
 app.listen(port, function () {
   var addr = app.address();
   console.log('   app listening on http://' + addr.address + ':' + addr.port);
