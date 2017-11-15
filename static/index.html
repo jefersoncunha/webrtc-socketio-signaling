@@ -18,12 +18,10 @@
             document.createElement('article');
             document.createElement('footer');
         </script>
-        <!-- <script src="socket.io.js"> </script>
-        <script src="peerConnection.js"> </script> -->
 
+        <script src="peerConnection.js"> </script>
         <script src="socketio.js"></script>
-    <!-- <script src="https://webrtc.jefersoncunha.me/05/socket.io.js"> </script> -->
-    <script src="https://webrtc.jefersoncunha.me/05/peerConnection.js"> </script>
+
     </head>
 
     <body>
@@ -82,7 +80,7 @@
                     var tr = document.createElement('tr');
                     var td1 = document.createElement('td');
                     var td2 = document.createElement('td');
-                    td1.innerHTML = userid + 'esta presente na sala, vamos comecar a chamada?';
+                    td1.innerHTML = '<h2>'+ userid +'</h2> ' + 'esta presente, acessar essa sala?';
 
                     var button = document.createElement('button');
                     button.innerHTML = 'começar';
@@ -105,7 +103,7 @@
 
                 peer.onStreamAdded = function(e) {
                     var video = e.mediaElement;
-                    video.setAttribute('width', 600);
+                    video.setAttribute('width', 670);
                     videosContainer.insertBefore(video, videosContainer.firstChild);
 
                     video.play();
@@ -154,7 +152,7 @@
                     var videos = document.querySelectorAll('video'),
                         length = videos.length, video;
 
-                    var minus = 130;
+                    var minus = 80;
                     var windowHeight = 700;
                     var windowWidth = 600;
                     var windowAspectRatio = windowWidth / windowHeight;
@@ -206,7 +204,7 @@
                 (function() {
                     var uniqueToken = document.getElementById('unique-token');
                     if (uniqueToken)
-                        if (location.hash.length > 2) uniqueToken.parentNode.parentNode.parentNode.innerHTML = '<h2 style="text-align:center;"><a href="' + location.href + '" target="_blank">Compartilhe esse link</a></h2>';
+                        if (location.hash.length > 2) uniqueToken.parentNode.parentNode.parentNode.innerHTML = '<h2 style="text-align:center;"><a href="' + location.href + '" target="_blank">Link Sala</a></h2>';
                         else uniqueToken.innerHTML = uniqueToken.parentNode.parentNode.href = '#' + (Math.random() * new Date().getTime()).toString(36).toUpperCase().replace( /\./g , '-');
                 })();
 
