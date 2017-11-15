@@ -1,3 +1,11 @@
+var isHeroku = !!process.env.DYNO
+var isUmbler = (SERVER==='umbler');
+
+
+console.log('is heroku?', !!process.env.DYNO)
+console.log('isUmbler?', isUmbler)
+
+
 var fs = require('fs');
 var express = require('express');
 var _static = require('node-static');
@@ -14,22 +22,24 @@ function serverCallback(request, response) {
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
         file.serve(request, response);
     })
     .resume();
 }
 
-app = require('http').createServer(serverCallback);
-
-console.log(app);
+app = require('https').createServer(serverCallback);
 
 var io = require('socket.io').listen(app, {
     log: true,
     origins: '*:*'
 });
 
-io.set("transports", ["xhr-polling"]);
-io.set("polling duration", 10);
+io.set('transports', [
+    // 'websocket',
+    'xhr-polling',
+    'jsonp-polling'
+])
 
 var channels = {};
 
@@ -73,9 +83,8 @@ function onNewNamespace(channel, sender) {
     });
 }
 
-// O HEROKU pede pra subir o app em uma porta e por padrão ele coloca uma variável de ambiente chamada PORT
-// se ela não existir, sobe o app em localhost:8888 :)
 app.listen(process.env.PORT || 3000, function(){
-  let host = isHeroku ? 'https://webrtc-socketio-signaling.herokuapp.com' : 'https://webrtc-node.jefersoncunha.me'
+  // let host = isHeroku ? 'https://webrtc-socketio-signaling.herokuapp.com' : 'https://webrtc-node.jefersoncunha.me'
+  let host = isUmbler ? 'https://webrtc-node.jefersoncunha.me' : 'https://localhost:3000'
   console.log(`Online! Access: ${host}`)
 });
