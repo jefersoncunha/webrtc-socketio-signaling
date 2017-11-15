@@ -24,17 +24,17 @@ function serverCallback(request, response) {
     .resume();
 }
 
-if(process.env.DYNO){
-    // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
-    app = require('http').createServer(serverCallback);
-} else {
-    // se local
+// if(process.env.DYNO){
+//     // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
+//     app = require('http').createServer(serverCallback);
+// } else {
+//     // se local
     let options = {
         key: fs.readFileSync('./fake-keys/privatekey.pem'),
         cert: fs.readFileSync('./fake-keys/certificate.pem')
     };
-    app = require('https').createServer(options, serverCallback);
-}
+    app = require('http').createServer(options, serverCallback);
+// }
 
 // console.log(app);
 
@@ -97,7 +97,7 @@ function onNewNamespace(channel, sender) {
 //   console.log(`Online! Acåcess: ${host}`)
 // });
 
-var port = process.env.PORT || 9001;
+var port = process.env.PORT || 3000;
 app.listen(port, function () {
   var addr = app.address();
   console.log('   app listening on http://' + addr.address + ':' + addr.port);
