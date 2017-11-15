@@ -28,7 +28,7 @@ function serverCallback(request, response) {
     .resume();
 }
 
-app = require('https').createServer(serverCallback);
+app = require('http').createServer(serverCallback);
 
 var io = require('socket.io').listen(app, {
     log: true,
@@ -83,7 +83,7 @@ function onNewNamespace(channel, sender) {
     });
 }
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(3000, function(){
   // let host = isHeroku ? 'https://webrtc-socketio-signaling.herokuapp.com' : 'https://webrtc-node.jefersoncunha.me'
   let host = isUmbler ? 'https://webrtc-node.jefersoncunha.me' : 'https://localhost:3000'
   console.log(`Online! Access: ${host}`)
