@@ -1,4 +1,10 @@
 var isHeroku = !!process.env.DYNO
+var isUmbler = (SERVER==='umbler');
+
+
+console.log('is heroku?', !!process.env.DYNO)
+console.log('isUmbler?', isUmbler)
+
 
 var fs = require('fs');
 var express = require('express');
@@ -11,8 +17,6 @@ var file = new _static.Server('./static', {
 let options = {}
 let app
 
-console.log('is heroku?', !!process.env.DYNO)
-
 function serverCallback(request, response) {
     request.addListener('end', function () {
         response.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,28 +28,18 @@ function serverCallback(request, response) {
     .resume();
 }
 
-// if(process.env.DYNO){
-//     // ou qualquer variável de ambiente que houver só no heroku (tu pode setar as tuas próprias)
-//     app = require('http').createServer(serverCallback);
-// } else {
-//     // se local
-    let options = {
-        key: fs.readFileSync('./fake-keys/privatekey.pem'),
-        cert: fs.readFileSync('./fake-keys/certificate.pem')
-    };
-    app = require('http').createServer(options, serverCallback);
-// }
-
-// console.log(app);
-
+app = require('http').createServer(serverCallback);
 
 var io = require('socket.io').listen(app, {
     log: true,
     origins: '*:*'
 });
 
-io.set("transports", ["xhr-polling"]);
-io.set("polling duration", 10);
+io.set('transports', [
+    // 'websocket',
+    'xhr-polling',
+    'jsonp-polling'
+])
 
 var channels = {};
 
@@ -89,16 +83,8 @@ function onNewNamespace(channel, sender) {
     });
 }
 
-// O HEROKU pede pra subir o app em uma porta e por padrão ele coloca uma variável de ambiente chamada PORT
-// se ela não existir, sobe o app em localhost:8888 :)
-
-// app.listen(process.env.PORT || 3000, function(){
-//   let host = isHeroku ? 'https://webrtc-socketio-signaling.herokuapp.com' : 'https://localhost:3000'
-//   console.log(`Online! Acåcess: ${host}`)
-// });
-
-var port = process.env.PORT || 3000;
-app.listen(port, function () {
-  var addr = app.address();
-  console.log('   app listening on http://' + addr.address + ':' + addr.port);
+app.listen(3000, function(){
+  // let host = isHeroku ? 'https://webrtc-socketio-signaling.herokuapp.com' : 'https://webrtc-node.jefersoncunha.me'
+  let host = isUmbler ? 'https://webrtc-node.jefersoncunha.me' : 'https://localhost:3000'
+  console.log(`Online! Access: ${host}`)
 });
