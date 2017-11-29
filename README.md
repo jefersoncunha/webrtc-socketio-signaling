@@ -1,4 +1,4 @@
-# WebRTC With Socket.io over Node.js
+# WebRTC with Socket.io over Node.js
 
 ### Install on Linux/Ubuntu/CentOS/Debian/Mac etc.
 
