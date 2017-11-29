@@ -1,14 +1,5 @@
-# [Socket.io over Node.js](https://github.com/muaz-khan/WebRTC-Experiment/blob/master/socketio-over-nodejs) / [Demo](https://www.webrtc-experiment.com/video-conferencing/) 
+# Socket.io over Node.js
 
-[![npm](https://img.shields.io/npm/v/socketio-over-nodejs.svg)](https://npmjs.org/package/socketio-over-nodejs) [![downloads](https://img.shields.io/npm/dm/socketio-over-nodejs.svg)](https://npmjs.org/package/socketio-over-nodejs)
-
-**socket.io over node.js** for webrtc-signaling!
-
-<a href="https://nodei.co/npm/socketio-over-nodejs/">
-    <img src="https://nodei.co/npm/socketio-over-nodejs.png">
-</a>
-
-=
 
 #### Install via `npm`
 
