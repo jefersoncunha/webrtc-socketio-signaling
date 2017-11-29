@@ -1,28 +1,5 @@
 # WebRTC With Socket.io over Node.js
 
-
-#### Install via `npm`
-
-```
-npm install socketio-over-nodejs
-```
-
-and run the `signaler.js` nodejs file:
-
-```
-// run simple HTTP server
-node ./node_modules/socketio-over-nodejs/signaler.js
-
-// run HTTPs server
-node ./node_modules/socketio-over-nodejs/signaler-ssl.js
-```
-
-Now you can test: `http://localhost:8888/` or `https://localhost:8888/`
-
-You can use ip-address `127.1.1` on Mac/Linux instead of `localhost`.
-
-=
-
 ### Install on Linux/Ubuntu/CentOS/Debian/Mac etc.
 
 ```
