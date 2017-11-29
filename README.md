@@ -2,12 +2,12 @@
 
 ### Install on Linux/Ubuntu/CentOS/Debian/Mac etc.
 
-1. Download and extract **ZIP file** of this repository then copy `folder-location` of the`signaler.js` file
+1. Download and extract **ZIP file** of this repository then copy `folder-location` of the`server.js` file
 2. Open **Node.js command prompt** window
 3. Type command `cd folder-location` where `folder-location` can be `C:\socketio-over-nodejs`
 4. Type `npm install express` or [download ZIP](http://code.snyco.net/node_modules/express.zip)
 5. Type `npm install socket.io` or [download ZIP](http://code.snyco.net/node_modules/socket.io.zip)
-6. Type `node signaler` to run the node.js server
+6. Type `node server` to run the node.js server
 
 Then open `http://localhost:8888/`.
 
